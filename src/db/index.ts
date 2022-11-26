@@ -9,6 +9,11 @@ const pool = new Pool({ connectionString });
 
 export const query = async (query: Query): Promise<any[]> => {
     pool.connect();
-    const res = await pool.query(query);
-    return res.rows;
+    try {
+        const res = await pool.query(query);
+        return res.rows;
+    } catch(e) {
+        console.log(e);
+        throw new Error();
+    }
 }
