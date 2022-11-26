@@ -2,7 +2,7 @@ import { query } from './index';
 import type { Query, User } from '../types';
 
 export const getUser = async (email: string): Promise<User> => {
-    const text: string = `SELECT (user_id, email) FROM "User" WHERE email = $1;`;
+    const text: string = `SELECT (user_id, email, password) FROM "User" WHERE email = $1;`;
     const queryObj: Query = {
         text,
         values: [email],
