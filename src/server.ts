@@ -1,5 +1,9 @@
 import App from '@/app'
+import AuthRoute from '@/routes/auth.route'
+import validateEnv from '@/utils/validateEnv'
 
-const app = new App([])
+validateEnv()
+
+const app = new App([new AuthRoute()])
 
 app.listen()
