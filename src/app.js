@@ -2,6 +2,7 @@ import express from 'express'
 import { NODE_ENV, PORT } from './config'
 import compression from 'compression'
 import errorMiddleware from './middlewares/error.middleware'
+import knex from './database'
 
 class App {
 
@@ -10,6 +11,7 @@ class App {
         this.env = NODE_ENV || 'development'
         this.port = PORT || 3000
 
+        this.connectToDatabase()
         this.initializeMiddlewares()
         this.initializeRoutes(routes)
         this.initializeErrorHandling()
@@ -20,6 +22,10 @@ class App {
             console.log(`ENV: ${ this.env }`)
             console.log(`App listening on port: ${ this.port }`)
         })
+    }
+
+    connectToDatabase() {
+        Model.knex(knex)
     }
 
     initializeMiddlewares() {
