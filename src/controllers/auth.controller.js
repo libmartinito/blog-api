@@ -25,6 +25,18 @@ class AuthController {
             next(error)
         }
     }
+
+    logout = async (req, res, next) => {
+        try {
+            const userData = req.body()
+            const loggedOutUserData = await this.authService.logout(userData)
+
+            res.setHeader('Set-Cookie', ['Authorization=; Max-age=0'])
+            res.status(200).json(loggedOutUserData)
+        } catch(error) {
+            next(error)
+        }
+    }
 }
 
 export default AuthController

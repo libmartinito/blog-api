@@ -42,6 +42,19 @@ class AuthService {
         return { cookie, user }
     }
 
+    async logout(userData) {
+        if (!userData) throw new HttpException(400, 'There is no user data provided.')
+
+        const user = await Users.query()
+            .select()
+            .from('users')
+            .where('email', '=', userData.email)
+            .first()
+        if (!user) throw new HttpException(400, 'There is no user found.')
+
+        return user
+    }
+
     createToken(user) {
         const data = { id: user.id }
         const secretKey = SECRET_KEY
